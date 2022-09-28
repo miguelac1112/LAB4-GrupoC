@@ -13,8 +13,10 @@
                     <h2>Nuevo Servicio</h2>
                     <hr/>
                     <form method="post" th:action="@{'/servicios/nuevo'}">
-                        <input th:value="${mascota.id}" th:text="${mascota.nombre}" th:name="idMascota" type="text" disabled/>
+                        <label th:text="'Mascota: '+${mascota.nombre}"  class="form-label">Responsable</label>
+                        <input name="idMascota" type="hidden" th:value="${mascota.getId()}">
                         <input th:value="${idCuenta}" th:name="idCuenta" type="hidden"/>
+                        <br>
                         <div class="mb-3">
                             <label class="form-label">Responsable</label>
                             <select class="form-select" name="idResponsable">
@@ -23,20 +25,6 @@
                             </select>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Cuenta</label>
-                            <select class="form-select" name="supplier" >
-                                <option></option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Duración</label>
-                            <input  type="number" class="form-control"/>
-                            <div class="invalid-feedback">
-                                Please choose a username.
-                            </div>
-                        </div>
 
                         <div class="mb-3">
                             <label for="regionId" class="form-label">Entrega</label>
@@ -48,10 +36,20 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Responsable</label>
-                            <select class="form-select" name="category">
-                                <option></option>
+                            <label class="form-label">Servicios</label>
+                            <select class="form-select" name="idopciones">
+                                <option th:each="op : ${opciones}" th:value="${op.getId()}"
+                                        th:text="${op.descripcion}"></option>
                             </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Duración</label>
+                            <input class="form-control" name="duracion">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Hora Inicio</label>
+                            <input class="form-control" type="date" name="fecha_hora">
                         </div>
 
                         <a th:href="@{'/product'}" class="btn btn-danger">Cancelar</a>
