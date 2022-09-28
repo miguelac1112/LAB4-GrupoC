@@ -1,30 +1,63 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/navbar.html :: header( title = 'Transportistas')"></head>
+    <head th:replace="fragments/navbar.html :: header( title = 'Productos')"></head>
     <body>
         <div class="container">
-            <nav th:replace="fragments/navbar.html :: navbar( active = 'Shipper')"></nav>
             <div class="row mb-4">
                 <div class="col-md-6 offset-md-3">
-                    <h2>Nuevo Transportista</h2>
-                    <div th:if="${errorCompany != null}" th:text="${errorCompany}" class="alert alert-danger"
-                         role="alert"></div>
+                    <h2>Nuevo Servicio</h2>
                     <hr/>
-                    <form method="post" th:action="@{'/shipper/save'}">
+                    <form method="post" th:action="@{'/product/save'}" th:object="${servicio}">
+                        <input th:field="*{id}" type="hidden"/>
+
                         <div class="mb-3">
-                            <label for="companyName" class="form-label">Nombre de la compañía</label>
-                            <input name="companyName" type="text" class="form-control" id="companyName">
+                            <label class="form-label">Mascota</label>
+                            <select class="form-select" name="supplier" th:field="${product.supplier}">
+                                <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
+                                        th:text="${supplier.companyname}"></option>
+                            </select>
                         </div>
+
                         <div class="mb-3">
-                            <label for="phone" class="form-label">Teléfono</label>
-                            <input name="phone" type="text" class="form-control" id="phone">
+                            <label class="form-label">Cuenta</label>
+                            <select class="form-select" name="supplier" th:field="${product.supplier}">
+                                <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
+                                        th:text="${supplier.companyname}"></option>
+                            </select>
                         </div>
-                        <a th:href="@{'/shipper/list'}" class="btn btn-danger">Cancelar</a>
-                        <button type="submit" class="btn btn-primary">Registrar</button>
+
+                        <div class="mb-3">
+                            <label class="form-label">Duración</label>
+                            <input th:field="*{productname}" type="number" class="form-control"
+                                   th:classappend="${#fields.hasErrors('productname')?'is-invalid':'is-valid'}"/>
+                            <div class="invalid-feedback" th:if="${#fields.hasErrors('productname')}"
+                                 th:errors="*{productname}">
+                                Please choose a username.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regionId" class="form-label">Entrega</label>
+                            <select class="form-select" name="regionId" id="regionId" required>
+                                <option disabled>Seleccionar entrega</option>
+                                <option value="Domicilio">Domicilio</option>
+                                <option value="Recojo">Recojo</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Responsable</label>
+                            <select class="form-select" name="category" th:field="${product.category}">
+                                <option th:each="categoria : ${listaCategorias}" th:value="${categoria.id}"
+                                        th:text="${categoria.categoryname}"></option>
+                            </select>
+                        </div>
+
+                        <a th:href="@{'/product'}" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
                 </div>
             </div>
         </div>
-        <script th:replace="fragments/navbar.html :: footer-bootstrap"></script>
     </body>
 </html>
