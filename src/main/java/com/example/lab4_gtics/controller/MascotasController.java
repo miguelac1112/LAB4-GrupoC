@@ -110,5 +110,17 @@ public class MascotasController {
         return "listaMascotas";
     }
 
+    @GetMapping(value={"/delete"})
+    public String borrarMascota(@RequestParam("id") int id , RedirectAttributes attr){
+
+        Optional<Mascota> optMascota= mascotaRepository.findById(id);
+
+        if(optMascota.isPresent()){
+            mascotaRepository.deleteById(id);
+            attr.addFlashAttribute("msg","Mascota borrada del registro");
+        }
+        return "redirect:/mascota/lista";
+
+    }
 
 }
