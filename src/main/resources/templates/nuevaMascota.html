@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Veterinaria: Candy&Crash</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-md-6 offset-md-3">
+      <h2>Nueva mascota</h2>
+      <hr/>
+      <form method="post" th:action="@{'/mascota/save'}" th:object="${mascota}">
+        <input th:field="*{id}" type="hidden"/>
+        <div class="mb-3">
+          <label class="form-label">Nombre del mascota</label>
+          <input th:field="*{nombre}" type="text" class="form-control"
+                 th:classappend="${#fields.hasErrors('nombre')?'is-invalid':''}"/>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}"
+               th:errors="*{nombre}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Edad de la mascota</label>
+          <input th:field="*{anho}" type="text" class="form-control"
+                 th:classappend="${#fields.hasErrors('anho')?'is-invalid':''}"/>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('anho')}"
+               th:errors="*{anho}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Sexo</label>
+          <select class="form-select" name="raza" th:field="${mascota.sexo}">
+            <option value="Masculino"> Masculino</option>
+            <option value="Femenino"> Femenino</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Observaciones</label>
+          <input th:field="*{observaciones}" type="text" class="form-control"
+                 th:classappend="${#fields.hasErrors('observaciones')?'is-invalid':''}"/>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('observaciones')}"
+               th:errors="*{observaciones}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Historia</label>
+          <input th:field="*{historia}" type="text" class="form-control"
+                 th:classappend="${#fields.hasErrors('historia')?'is-invalid':''}"/>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('historia')}"
+               th:errors="*{historia}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Raza</label>
+          <select class="form-select" name="raza" th:field="${mascota.razaEspecieIdraza}">
+            <option th:each="raza : ${listaRaza}" th:value="${raza.id}"
+                    th:text="${raza.descripcion}"></option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Raza otros</label>
+          <input th:field="*{razaOtros}" type="text" class="form-control"
+                 th:classappend="${#fields.hasErrors('razaOtros')?'is-invalid':''}"/>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('razaOtros')}"
+               th:errors="*{razaOtros}">
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Dueño/Cuenta</label>
+          <div class="row">
+            <select class="form-select col-md-4" name="raza" th:field="${mascota.razaEspecieIdraza}">
+              <option th:each="cuenta : ${listaPersonas}" th:value="${cuenta.id}"
+                      th:text="${cuenta.correo}"></option>
+            </select>
+            <button class="btn btn-primary col-md-4">Crear Dueño</button>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,11 +1,15 @@
 package com.example.lab4_gtics.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
+import javax.validation.constraints.Positive;
 
 @Entity
 @Table(name = "mascota")
 public class Mascota {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idmascota", nullable = false)
     private Integer id;
 
@@ -13,6 +17,7 @@ public class Mascota {
     private String nombre;
 
     @Column(name = "anho", nullable = false, length = 45)
+    @Positive(message = "Tiene que ser mayor a 0")
     private String anho;
 
     @Lob
