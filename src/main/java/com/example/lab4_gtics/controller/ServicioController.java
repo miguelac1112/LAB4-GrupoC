@@ -19,11 +19,14 @@ public class ServicioController {
     ResponsableRepository responsableRepository;
     @Autowired
     MascotaRepository mascotaRepository;
+    @Autowired
+    OpcionRepository opcionRepository;
 
     @GetMapping(value = "")
     public String index(Model model){
         int idMascota= 1;
         model.addAttribute("servicios",servicioRepository.ServicioXMascota(idMascota));
+        model.addAttribute("idMascota",idMascota);
         return "servicios/list";
     }
 
@@ -32,8 +35,9 @@ public class ServicioController {
                         @RequestParam(value = "idCuenta") Integer cuenta,
                         Model model){
         model.addAttribute("responsables", responsableRepository.findAll());
-        model.addAttribute("mascota", mascotaRepository.findById(mascota));
+        model.addAttribute("mascota", mascotaRepository.findById(mascota).get());
         model.addAttribute("idCuenta", cuenta);
+        model.addAttribute("opciones", opcionRepository.findAll());
        return "servicios/newFrm";
     }
 }
