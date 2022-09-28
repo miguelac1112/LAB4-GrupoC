@@ -1,6 +1,7 @@
 package com.example.lab4_gtics.controller;
 
 import com.example.lab4_gtics.entity.Cuenta;
+import com.example.lab4_gtics.entity.ListaMascotasDto;
 import com.example.lab4_gtics.entity.Mascota;
 import com.example.lab4_gtics.repository.CuentaRepository;
 import com.example.lab4_gtics.repository.MascotaRepository;
@@ -34,40 +35,20 @@ public class ContactoController {
     @PostMapping("/guardar")
     public String guardarContacto(Cuenta cuenta, RedirectAttributes attr) {
         attr.addFlashAttribute("msg1", "Contacto guardado exitosamente");
-        CuentaRepository.save(cuenta);
+        cuentaRepository.save(cuenta);
         return "redirect:/contacto/listaduenos";
 
     }
 
     @GetMapping("/borrar")
     public String borrarContacto(@RequestParam("id") Integer id, RedirectAttributes attr) {
-        Optional<Cuenta> oCuenta = CuentaRepository.findById(id);
+        Optional<Cuenta> oCuenta = cuentaRepository.findById(id);
         if (oCuenta.isPresent()) {
             attr.addFlashAttribute("msg3", "Contacto borrado exitosamente");
-            CuentaRepository.delete(oCuenta.get());
+            cuentaRepository.delete(oCuenta.get());
         }
         return "redirect:/contacto/listaduenos";
 
     }
-    @GetMapping("/borrarMascota")
-    public String borrarMascota(@RequestParam("id") Integer id,RedirectAttributes attr){
-        Optional<Mascota> oMascota = MascotaRepository.buscaMascotas(id);
-        if(oMascota.isPresent()) {
-            MascotaRepository.delete(oMascota.get());
-            attr.addFlashAttribute("msg4", "Mascota borrada exitosamente");
-        }
-        return "redirect:/contacto/listamascotas";
 
-    }
-
-    @GetMapping("/verMascota")
-    public String verMascota(@RequestParam("id") int id, Model model) {
-
-        List<Mascota> ListaMascotasDto> = MascotaRepository.obtenerListaMascotas(id);
-        model.addAttribute("mascotas", lista);
-
-        return "contacto/listamascotas";
-
-    }
-    }
 }

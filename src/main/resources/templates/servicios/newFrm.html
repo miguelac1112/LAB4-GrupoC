@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/navbar.html :: header( title = 'Productos')"></head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <title>Lista Transportistas</title>
+</head>
     <body>
         <div class="container">
             <div class="row mb-4">
                 <div class="col-md-6 offset-md-3">
                     <h2>Nuevo Servicio</h2>
                     <hr/>
-                    <form method="post" th:action="@{'/product/save'}" th:object="${servicio}">
-                        <input th:field="*{id}" type="hidden"/>
-
+                    <form method="post" th:action="@{'/servicios/nuevo'}">
+                        <input th:value="${idMascota}" th:name="idMascota" type="hidden"/>
+                        <input th:value="${idCuenta}" th:name="idCuenta" type="hidden"/>
                         <div class="mb-3">
                             <label class="form-label">Mascota</label>
-                            <select class="form-select" name="supplier" th:field="${product.supplier}">
-                                <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
-                                        th:text="${supplier.companyname}"></option>
+                            <select class="form-select" name="">
+                                <option></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Cuenta</label>
-                            <select class="form-select" name="supplier" th:field="${product.supplier}">
-                                <option th:each="supplier : ${listaProveedores}" th:value="${supplier.id}"
-                                        th:text="${supplier.companyname}"></option>
+                            <select class="form-select" name="supplier" >
+                                <option></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Duración</label>
-                            <input th:field="*{productname}" type="number" class="form-control"
-                                   th:classappend="${#fields.hasErrors('productname')?'is-invalid':'is-valid'}"/>
-                            <div class="invalid-feedback" th:if="${#fields.hasErrors('productname')}"
-                                 th:errors="*{productname}">
+                            <input  type="number" class="form-control"/>
+                            <div class="invalid-feedback">
                                 Please choose a username.
                             </div>
                         </div>
@@ -47,9 +48,8 @@
 
                         <div class="mb-3">
                             <label class="form-label">Responsable</label>
-                            <select class="form-select" name="category" th:field="${product.category}">
-                                <option th:each="categoria : ${listaCategorias}" th:value="${categoria.id}"
-                                        th:text="${categoria.categoryname}"></option>
+                            <select class="form-select" name="category">
+                                <option></option>
                             </select>
                         </div>
 
