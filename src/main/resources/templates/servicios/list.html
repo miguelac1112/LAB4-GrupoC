@@ -21,16 +21,22 @@
                     <tr>
                         <th>#</th>
                         <th>Mascota</th>
-                        <th>Cuenta</th>
+                        <th>Dirección</th>
+                        <th>Correo</th>
+                        <th>Hora de inicio</th>
+                        <th>Duración</th>
                         <th>Entrega</th>
                         <th>Responsable</th>
                     </tr>
-                    <tr th:each="shipper, info : ${shipperList}">
+                    <tr th:each="serv, info : ${servicios}">
                         <td th:text="${info.index + 1}"></td>
-                        <td th:text="${shipper.companyname}"></td>
-                        <td th:text="${shipper.phone}"></td>
-                        <td th:text="${shipper.phone}"></td>
-                        <td th:text="${shipper.phone}"></td>
+                        <td th:text="${serv.mascotaIdmascota.getNombre()}"></td>
+                        <td th:text="${serv.cuentaIdcuenta.getDireccion()}"></td>
+                        <td th:text="${serv.cuentaIdcuenta.getCorreo()}"></td>
+                        <td th:text="${serv.horaInicio}"></td>
+                        <td th:text="${serv.duracion}"></td>
+                        <td th:text="${serv.entrega}"></td>
+                        <td th:text="${serv.responsableIdresponsable.getNombre()}"></td>
                     </tr>
                 </table>
             </div>
