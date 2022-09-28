@@ -127,8 +127,8 @@ public class MascotasController {
     }
 
 
-
-    @GetMapping(value={"/delete"})
+    /*
+    @PostMapping(value={"/delete"})
     public String borrarMascota(@RequestParam("id") int id , RedirectAttributes attr){
 
         Optional<Mascota> optMascota= mascotaRepository.findById(id);
@@ -138,6 +138,21 @@ public class MascotasController {
             attr.addFlashAttribute("msg","Mascota borrada :)");
         }
         return "redirect:/mascota/lista";
+
+    }
+    */
+    @GetMapping(value={"/listadelete"})
+    public String borrar(@RequestParam("id") int id , RedirectAttributes attr, Model model){
+
+        Optional<Mascota> optMascota= mascotaRepository.findById(id);
+
+        if(optMascota.isPresent()){
+            //mascotaRepository.listaBorrar(id);
+            List<ListaMascotasDto> listado=mascotaRepository.listaBorrar(id);
+            attr.addFlashAttribute("msg","Mascota borrada :)");
+            model.addAttribute("listaMascotas",listado);
+        }
+        return "redirect:/mascota/listadelete";
 
     }
 

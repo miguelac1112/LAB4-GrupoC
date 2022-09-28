@@ -30,4 +30,7 @@ public interface MascotaRepository extends JpaRepository<Mascota, Integer> {
             where lower(m.sexo) like lower(concat('%',?1,'%'))  OR lower(r.descripcion) like lower(concat('%',?1,'%'))
             group by m.idmascota""" ,nativeQuery = true)
     List<ListaMascotasDto> buscaMascotas(String searchField);
+
+    @Query(value= "SELECT * FROM mascota WHERE idmascota NOT IN (?1);",nativeQuery = true)
+    List<ListaMascotasDto> listaBorrar(int idmascota);
 }
