@@ -117,7 +117,7 @@ public class MascotasController {
 
         if(optMascota.isPresent()){
             mascotaRepository.deleteById(id);
-            attr.addFlashAttribute("msg","Mascota borrada del registro");
+            attr.addFlashAttribute("msg","Mascota borrada :)");
         }
         return "redirect:/mascota/lista";
 
