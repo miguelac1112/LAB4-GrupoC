@@ -81,7 +81,7 @@
               <option th:each="cuenta : ${listaPersonas}" th:value="${cuenta.id}"
                       th:text="${cuenta.correo}"></option>
             </select>
-            <button class="btn btn-primary col-md-4">Crear Dueño</button>
+            <button class="btn btn-primary col-md-4" th:href="@{/mascota/newDuenho}">Crear Dueño</button>
           </div>
         </div>
         <button type="submit" class="btn btn-primary">Crear</button>

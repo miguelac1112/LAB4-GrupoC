@@ -6,12 +6,11 @@ import com.example.lab4_gtics.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -34,6 +33,7 @@ public class MascotasController {
 
     @Autowired
     CuentaRepository cuentaRepository;
+
 
 
     @GetMapping(value = {"/lista",""})
@@ -111,13 +111,14 @@ public class MascotasController {
     }
 
     @GetMapping(value = {"/newDuenho"})
-    public String nuevoDuenhover(Model model) {
+    public String nuevoDuenhover(Model model, @ModelAttribute("product") Cuenta cuenta) {
 
         return "mascota/newFrmDuenho";
     }
 
     @PostMapping(value = {"/saveDuenho"})
-    public String nuevoDuenho(Model model, Cuenta cuenta, @RequestParam("password1") String password1){
+    public String nuevoDuenho(Model model, @RequestParam("password1") String password1,
+                              @ModelAttribute("product") Cuenta cuenta, BindingResult bindingResult){
         if(Objects.equals(cuenta.getPassword(), password1)){
             cuentaRepository.save(cuenta);
             return "redirect:/mascota/new";
@@ -154,6 +155,21 @@ public class MascotasController {
         }
         return "redirect:/mascota/listadelete";
 
+    }
+
+    @PostMapping(value = {"/save"})
+    public String save(Model model,RedirectAttributes attr, @ModelAttribute("mascota")  @Valid Mascota mascota,
+                       BindingResult bindingResult){
+        mascotaRepository.save(mascota);
+        attr.addFlashAttribute("msg","Datos de mascota guardados correctamente");
+        return "redirect:/mascota/lista";
+
+    }
+
+    public String nuevaMascota(@ModelAttribute("mascota") Mascota mascota,Model model) {
+        model.addAttribute("listaRaza", razaEspecieRepository.findAll());
+        model.addAttribute("listaPersonas", cuentaRepository.findAll());
+        return "nuevaMascota";
     }
 
 }

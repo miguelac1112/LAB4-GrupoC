@@ -1,6 +1,8 @@
 package com.example.lab4_gtics.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "cuenta")
@@ -14,12 +16,17 @@ public class Cuenta {
     private String correo;
 
     @Column(name = "direccion", nullable = false, length = 80)
+    @Size(max = 80, message = "El tamaño máximo es 80 caracteres")
+    @NotBlank
     private String direccion;
 
     @Column(name = "password", nullable = false, length = 128)
+    @NotBlank(message = "Campo obligatorio")
     private String password;
 
     @Column(name = "telefono", nullable = false, length = 10)
+    @Size(max = 9, message = "El tamaño máximo es de 9 digitos")
+    @NotBlank
     private String telefono;
 
     @Column(name = "admin")
