@@ -18,7 +18,6 @@ public class ServicioController {
     public String index(Model model){
         int idMascota= 1;
         model.addAttribute("servicios",servicioRepository.ServicioXMascota(idMascota));
-
         return "servicios/list";
     }
 }
