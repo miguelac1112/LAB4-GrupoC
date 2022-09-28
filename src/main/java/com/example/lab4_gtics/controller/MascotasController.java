@@ -2,10 +2,7 @@ package com.example.lab4_gtics.controller;
 
 
 import com.example.lab4_gtics.entity.*;
-import com.example.lab4_gtics.repository.MascotaRepository;
-import com.example.lab4_gtics.repository.OpcionServicioRepository;
-import com.example.lab4_gtics.repository.RazaEspecieRepository;
-import com.example.lab4_gtics.repository.ServicioRepository;
+import com.example.lab4_gtics.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -34,6 +32,8 @@ public class MascotasController {
     @Autowired
     OpcionServicioRepository opcionServicioRepository;
 
+    @Autowired
+    CuentaRepository cuentaRepository;
 
 
     @GetMapping(value = {"/lista",""})
@@ -105,10 +105,28 @@ public class MascotasController {
     }
 
     @GetMapping(value = {"/new"})
-    public String nuevaMascota(Model model){
+    public String nuevaMascota(Model model) {
 
         return "listaMascotas";
     }
+
+    @GetMapping(value = {"/newDuenho"})
+    public String nuevoDuenhover(Model model) {
+
+        return "mascota/newFrmDuenho";
+    }
+
+    @PostMapping(value = {"/saveDuenho"})
+    public String nuevoDuenho(Model model, Cuenta cuenta, @RequestParam("password1") String password1){
+        if(Objects.equals(cuenta.getPassword(), password1)){
+            cuentaRepository.save(cuenta);
+            return "redirect:/mascota/new";
+        }else{
+            return "mascota/newFrmDuenho";
+        }
+    }
+
+
 
 
 }
