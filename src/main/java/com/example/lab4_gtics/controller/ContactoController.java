@@ -36,25 +36,25 @@ public class ContactoController {
     @PostMapping("/guardar")
     public String guardarContacto(Cuenta cuenta, RedirectAttributes attr){
         attr.addFlashAttribute("msg1", "Contacto guardado exitosamente");
-        cuentaRepository.save(cuenta);
+        CuentaRepository.save(cuenta);
         return "redirect:/contacto/listaduenos";
 
     }
     @GetMapping("/borrar")
     public String borrarContacto(@RequestParam("id") Integer id, RedirectAttributes attr) {
-        Optional<Cuenta> oCuenta = cuentaRepository.findById(id);
+        Optional<Cuenta> oCuenta = CuentaRepository.findById(id);
         if (oCuenta.isPresent()) {
             attr.addFlashAttribute("msg3", "Contacto borrado exitosamente");
-            cuentaRepository.delete(oCuenta.get());
+            CuentaRepository.delete(oCuenta.get());
         }
         return "redirect:/contacto/listaduenos";
 
     }
     @GetMapping("/borrarMascota")
     public String borrarMascota(@RequestParam("id") Integer id,RedirectAttributes attr){
-        Optional<Mascota> oMascota = mascotaRepository.findById(id);
+        Optional<Mascota> oMascota = MascotaRepository.buscaMascotas(id);
         if(oMascota.isPresent()) {
-            mascotaRepository.delete(oMascota.get());
+            MascotaRepository.delete(oMascota.get());
             attr.addFlashAttribute("msg4", "Mascota borrada exitosamente");
         }
         return "redirect:/contacto/listamascotas";
@@ -64,8 +64,8 @@ public class ContactoController {
     @GetMapping("/verMascota")
     public String verMascota(@RequestParam("id") int id, Model model) {
 
-        List<Mascota> mascotas = mascotaRepository.obtenerListaMascotas(id);
-        model.addAttribute("mascotas", mascotas);
+        List<Mascota> ListaMascotasDto> = MascotaRepository.obtenerListaMascotas(id);
+        model.addAttribute("mascotas", lista);
 
         return "contacto/listamascotas";
 
