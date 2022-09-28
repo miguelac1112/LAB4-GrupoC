@@ -26,20 +26,19 @@ public class ContactoController {
     MascotaRepository mascotaRepository;
 
 
-
-
     @GetMapping("/nuevo")
     public String nuevoContacto() {
         return "contacto/newFrm";
     }
 
     @PostMapping("/guardar")
-    public String guardarContacto(Cuenta cuenta, RedirectAttributes attr){
+    public String guardarContacto(Cuenta cuenta, RedirectAttributes attr) {
         attr.addFlashAttribute("msg1", "Contacto guardado exitosamente");
         CuentaRepository.save(cuenta);
         return "redirect:/contacto/listaduenos";
 
     }
+
     @GetMapping("/borrar")
     public String borrarContacto(@RequestParam("id") Integer id, RedirectAttributes attr) {
         Optional<Cuenta> oCuenta = CuentaRepository.findById(id);
@@ -70,6 +69,5 @@ public class ContactoController {
         return "contacto/listamascotas";
 
     }
-
-
+    }
 }
