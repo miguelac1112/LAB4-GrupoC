@@ -1,7 +1,5 @@
 package com.example.lab4_gtics.controller;
-import com.example.lab4_gtics.repository.OpcionServicioRepository;
-import com.example.lab4_gtics.repository.ResponsableRepository;
-import com.example.lab4_gtics.repository.ServicioRepository;
+import com.example.lab4_gtics.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +17,9 @@ public class ServicioController {
     ServicioRepository servicioRepository;
     @Autowired
     ResponsableRepository responsableRepository;
+    @Autowired
+    MascotaRepository mascotaRepository;
+
     @GetMapping(value = "")
     public String index(Model model){
         int idMascota= 1;
@@ -31,7 +32,7 @@ public class ServicioController {
                         @RequestParam(value = "idCuenta") Integer cuenta,
                         Model model){
         model.addAttribute("responsables", responsableRepository.findAll());
-        model.addAttribute("idMascota", mascota);
+        model.addAttribute("mascota", mascotaRepository.findById(mascota));
         model.addAttribute("idCuenta", cuenta);
        return "servicios/newFrm";
     }

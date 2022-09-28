@@ -38,9 +38,7 @@ public class ContactoController {
         cuentaRepository.save(cuenta);
         return "redirect:/contacto/listaduenos";
 
-
     }
-
     @GetMapping("/borrar")
     public String borrarContacto(@RequestParam("id") Integer id, RedirectAttributes attr) {
         Optional<Cuenta> oCuenta = cuentaRepository.findById(id);

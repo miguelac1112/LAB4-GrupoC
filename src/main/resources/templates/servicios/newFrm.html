@@ -13,12 +13,13 @@
                     <h2>Nuevo Servicio</h2>
                     <hr/>
                     <form method="post" th:action="@{'/servicios/nuevo'}">
-                        <input th:value="${idMascota}" th:name="idMascota" type="hidden"/>
+                        <input th:value="${mascota.id}" th:text="${mascota.nombre}" th:name="idMascota" type="text" disabled/>
                         <input th:value="${idCuenta}" th:name="idCuenta" type="hidden"/>
                         <div class="mb-3">
-                            <label class="form-label">Mascota</label>
-                            <select class="form-select" name="">
-                                <option></option>
+                            <label class="form-label">Responsable</label>
+                            <select class="form-select" name="idResponsable">
+                                <option th:each="res, info : ${responsables}" th:value="${res.getId()}"
+                                th:text="${res.getNombre()}"></option>
                             </select>
                         </div>
 
