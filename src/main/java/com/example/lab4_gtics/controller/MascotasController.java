@@ -127,7 +127,7 @@ public class MascotasController {
     }
 
 
-    /*
+
     @PostMapping(value={"/delete"})
     public String borrarMascota(@RequestParam("id") int id , RedirectAttributes attr){
 
@@ -140,7 +140,7 @@ public class MascotasController {
         return "redirect:/mascota/lista";
 
     }
-    */
+/*
     @GetMapping(value={"/listadelete"})
     public String borrar(@RequestParam("id") int id , RedirectAttributes attr, Model model){
 
@@ -154,6 +154,6 @@ public class MascotasController {
         }
         return "redirect:/mascota/listadelete";
 
-    }
+    }*/
 
 }
