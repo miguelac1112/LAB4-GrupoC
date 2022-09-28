@@ -9,7 +9,6 @@ import java.util.List;
 
 @Repository
 public interface OpcionServicioRepository extends JpaRepository<OpcionServicio, Integer> {
-
     @Query(value=" select * from opcion_servicio where servicio_idservicio=?1 ",nativeQuery = true)
     List<OpcionServicio> OpcionxMascota(int id);
 
